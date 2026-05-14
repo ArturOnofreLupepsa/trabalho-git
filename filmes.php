@@ -44,10 +44,12 @@ $filmes = [
                 <td><?= htmlspecialchars($filme["genero"]) ?></td>
                 <td><?= htmlspecialchars($filme["ano"]) ?></td>
                 <td><?= htmlspecialchars($filme["diretor"]) ?></td>
+                <td>
+                    <a href="edit.php?id=<?= $index ?>">Editar</a>
+                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
- 
 </body>
 </html>
