@@ -1,5 +1,6 @@
 <?php
- 
+sessiion_start();
+
 $filmes = [
     ["titulo" => "A Origem", "genero" => "Ficção Científica", "ano" => 2010, "diretor" => "Christopher Nolan"],
     ["titulo" => "O Poderoso Chefão", "genero" => "Crime / Drama", "ano" => 1972, "diretor" => "Francis Ford Coppola"],
@@ -12,9 +13,15 @@ $filmes = [
     ["titulo" => "O Cavaleiro das Trevas", "genero" => "Ação / Crime", "ano" => 2008, "diretor" => "Christopher Nolan"],
     ["titulo" => "Schindler's List", "genero" => "Drama / História", "ano" => 1993, "diretor" => "Steven Spielberg"],
 ];
- 
+
+if (!isset($_SESSION['filmes'])) {
+    $_SESSION['filmes'] = $filmes; // salva o array na sessão
+}
+
+$filmes = $_SESSION['filmes'] // sobrescreve o array com os dados da sessão
+
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -23,9 +30,9 @@ $filmes = [
     <title>Lista de Filmes</title>
 </head>
 <body>
- 
+
     <h1>Lista de Filmes</h1>
- 
+
     <table border="1">
         <thead>
             <tr>
