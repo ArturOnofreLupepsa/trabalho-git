@@ -12,6 +12,7 @@ $filmes = [
     ["titulo" => "Pulp Fiction", "genero" => "Crime / Drama", "ano" => 1994, "diretor" => "Quentin Tarantino"],
     ["titulo" => "O Cavaleiro das Trevas", "genero" => "Ação / Crime", "ano" => 2008, "diretor" => "Christopher Nolan"],
     ["titulo" => "Schindler's List", "genero" => "Drama / História", "ano" => 1993, "diretor" => "Steven Spielberg"],
+    ["titulo" => "OldBoy", "genero" => "Drama / Ação", "ano" => 2003, "diretor" => "Park Chan-wook"],
 ];
 
 if (!isset($_SESSION['filmes'])) {
