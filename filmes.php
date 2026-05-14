@@ -1,5 +1,5 @@
 <?php
-sessiion_start();
+session_start();
 
 $filmes = [
     ["titulo" => "A Origem", "genero" => "Ficção Científica", "ano" => 2010, "diretor" => "Christopher Nolan"],
