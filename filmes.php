@@ -41,6 +41,7 @@ $filmes = $_SESSION['filmes'] // sobrescreve o array com os dados da sessão
                 <th>Gênero</th>
                 <th>Ano</th>
                 <th>Diretor</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
