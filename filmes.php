@@ -1,7 +1,26 @@
 <?php
- 
-$filmes = [
-    ["titulo" => "A Origem", "genero" => "Ficção Científica", "ano" => 2010, "diretor" => "Christopher Nolan"],
+session_start();    
+if (isset($_POST['btn_enviar'])) {
+
+    $novoFilme = [
+        "titulo" => $_POST['titulo'],
+        "genero" => $_POST['genero'],
+        "ano" => $_POST['ano'],
+        "diretor" => $_POST['diretor']
+    ];
+
+    $_SESSION['lista_filmes'][] = $novoFilme;
+
+    $filmes = $_SESSION['lista_filmes'];
+
+    header("Location: ". $_SERVER['PHP_SELF']);
+    exit();
+
+}
+
+if (!isset($_SESSION['lista_filmes'])) {
+    $_SESSION['lista_filmes'] = [
+       ["titulo" => "A Origem", "genero" => "Ficção Científica", "ano" => 2010, "diretor" => "Christopher Nolan"],
     ["titulo" => "O Poderoso Chefão", "genero" => "Crime / Drama", "ano" => 1972, "diretor" => "Francis Ford Coppola"],
     ["titulo" => "Interestelar", "genero" => "Ficção Científica", "ano" => 2014, "diretor" => "Christopher Nolan"],
     ["titulo" => "Clube da Luta", "genero" => "Drama / Thriller", "ano" => 1999, "diretor" => "David Fincher"],
@@ -11,8 +30,12 @@ $filmes = [
     ["titulo" => "Pulp Fiction", "genero" => "Crime / Drama", "ano" => 1994, "diretor" => "Quentin Tarantino"],
     ["titulo" => "O Cavaleiro das Trevas", "genero" => "Ação / Crime", "ano" => 2008, "diretor" => "Christopher Nolan"],
     ["titulo" => "Schindler's List", "genero" => "Drama / História", "ano" => 1993, "diretor" => "Steven Spielberg"],
-];
- 
+
+    ];
+}
+
+$filmes = $_SESSION['lista_filmes'];
+
 ?>
  
 <!DOCTYPE html>
@@ -48,6 +71,16 @@ $filmes = [
             <?php endforeach; ?>
         </tbody>
     </table>
- 
+    
+    <H2>Cadastrar Novo Filme</H2>
+    <form method="POST" action="">
+        <input type="text" name="titulo" placeholder="Título do Filme" required>
+        <input type="text" name="genero" placeholder="Gênero" required>
+        <input type="number" name="ano" placeholder="Ano de lançamento" required>
+        <input type="text" name="diretor" placeholder="Nome do Diretor" required>
+        
+        <button type="submit" name="btn_enviar">Adicionar à lista</button>
+    </form>
+    <hr>
 </body>
 </html>
