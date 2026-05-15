@@ -61,34 +61,30 @@ $editando = $_GET['id'] ?? null;
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($filmes as $index => $filme): ?>
-            <tr>
-                <?php if ($editando === $index): ?>
-                <form method="POST">
-                    <input type="hidden" name="id" value="<?= $index ?>">
-                    <td><?= $index + 1 ?></td> 
-                    <td><input type="text" name="titulo" value="<?= htmlspecialchars($filme['titulo']) ?>"></td>
-                    <td><input type="text" name="genero" value="<?= htmlspecialchars($filme['genero']) ?>"></td>
-                    <td><input type="number" name="ano" value="<?= $filme['ano'] ?>"></td>
-                    <td><input type="text" name="diretor" value="<?= htmlspecialchars($filme['diretor']) ?>"></td>
-                    <td>
-                        <button type="submit">Salvar</button>
-                        <a href="filmes.php">Cancelar</a>
-                    </td>
-                </form>
-                <?php else: ?>
-                    <td><?= $index + 1 ?></td>
-                    <td><?= htmlspecialchars($filme["titulo"]) ?></td>
-                    <td><?= htmlspecialchars($filme["genero"]) ?></td>
-                    <td><?= htmlspecialchars($filme["ano"]) ?></td>
-                    <td><?= htmlspecialchars($filme["diretor"]) ?></td>
-                    <td>
-                        <a href="filmes.php?id=<?= $index ?>">Editar</a>
-                    </td>
-                <?php endif; ?> 
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</body>
-</html>
+<?php foreach ($filmes as $index => $filme): ?>
+<tr>
+    <?php if ($editando !== null && $editando == $index): ?>
+        <form method="POST">
+            <input type="hidden" name="id" value="<?= $index ?>">
+            <td><?= $index + 1 ?></td>
+            <td><input type="text" name="titulo" value="<?= htmlspecialchars($filme['titulo']) ?>"></td>
+            <td><input type="text" name="genero" value="<?= htmlspecialchars($filme['genero']) ?>"></td>
+            <td><input type="number" name="ano" value="<?= $filme['ano'] ?>"></td>
+            <td><input type="text" name="diretor" value="<?= htmlspecialchars($filme['diretor']) ?>"></td>
+            <td>
+                <button type="submit">Salvar</button>
+                <a href="filmes.php">Cancelar</a>
+            </td>
+        </form>
+    <?php else: ?>
+        <td><?= $index + 1 ?></td>
+        <td><?= htmlspecialchars($filme["titulo"]) ?></td>
+        <td><?= htmlspecialchars($filme["genero"]) ?></td>
+        <td><?= htmlspecialchars($filme["ano"]) ?></td>
+        <td><?= htmlspecialchars($filme["diretor"]) ?></td>
+        <td>
+            <a href="filmes.php?id=<?= $index ?>">Editar</a>
+        </td>
+    <?php endif; ?>
+</tr>
+<?php endforeach; ?>
