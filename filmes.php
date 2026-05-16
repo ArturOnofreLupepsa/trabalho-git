@@ -1,5 +1,6 @@
 <?php
- 
+session_start();
+
 $filmes = [
     ["titulo" => "A Origem", "genero" => "Ficção Científica", "ano" => 2010, "diretor" => "Christopher Nolan"],
     ["titulo" => "O Poderoso Chefão", "genero" => "Crime / Drama", "ano" => 1972, "diretor" => "Francis Ford Coppola"],
@@ -11,10 +12,32 @@ $filmes = [
     ["titulo" => "Pulp Fiction", "genero" => "Crime / Drama", "ano" => 1994, "diretor" => "Quentin Tarantino"],
     ["titulo" => "O Cavaleiro das Trevas", "genero" => "Ação / Crime", "ano" => 2008, "diretor" => "Christopher Nolan"],
     ["titulo" => "Schindler's List", "genero" => "Drama / História", "ano" => 1993, "diretor" => "Steven Spielberg"],
+    ["titulo" => "OldBoy", "genero" => "Drama / Ação", "ano" => 2003, "diretor" => "Park Chan-wook"],
 ];
- 
+
+//Salva o array na edição
+if (!isset($_SESSION['filmes'])) {
+    $_SESSION['filmes'] = $filmes;
+}
+
+//Processa o form na edição
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'];
+    $_SESSION['filmes'][$id] = [
+        "titulo"  => $_POST['titulo'],
+        "genero"  => $_POST['genero'],
+        "ano"     => $_POST['ano'],
+        "diretor" => $_POST['diretor'],
+    ];
+    header('Location: filmes.php');
+    exit;
+}
+
+//sobscrever o array com os dados da session
+$filmes = $_SESSION['filmes'];
+$editando = $_GET['id'] ?? null; 
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -23,9 +46,9 @@ $filmes = [
     <title>Lista de Filmes</title>
 </head>
 <body>
- 
+
     <h1>Lista de Filmes</h1>
- 
+
     <table border="1">
         <thead>
             <tr>
@@ -34,20 +57,34 @@ $filmes = [
                 <th>Gênero</th>
                 <th>Ano</th>
                 <th>Diretor</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($filmes as $index => $filme): ?>
-            <tr>
-                <td><?= $index + 1 ?></td>
-                <td><?= htmlspecialchars($filme["titulo"]) ?></td>
-                <td><?= htmlspecialchars($filme["genero"]) ?></td>
-                <td><?= htmlspecialchars($filme["ano"]) ?></td>
-                <td><?= htmlspecialchars($filme["diretor"]) ?></td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
- 
-</body>
-</html>
+<?php foreach ($filmes as $index => $filme): ?>
+<tr>
+    <?php if ($editando !== null && $editando == $index): ?>
+        <form method="POST">
+            <input type="hidden" name="id" value="<?= $index ?>">
+            <td><?= $index + 1 ?></td>
+            <td><input type="text" name="titulo" value="<?= htmlspecialchars($filme['titulo']) ?>"></td>
+            <td><input type="text" name="genero" value="<?= htmlspecialchars($filme['genero']) ?>"></td>
+            <td><input type="number" name="ano" value="<?= $filme['ano'] ?>"></td>
+            <td><input type="text" name="diretor" value="<?= htmlspecialchars($filme['diretor']) ?>"></td>
+            <td>
+                <button type="submit">Salvar</button>
+                <a href="filmes.php">Cancelar</a>
+            </td>
+        </form>
+    <?php else: ?>
+        <td><?= $index + 1 ?></td>
+        <td><?= htmlspecialchars($filme["titulo"]) ?></td>
+        <td><?= htmlspecialchars($filme["genero"]) ?></td>
+        <td><?= htmlspecialchars($filme["ano"]) ?></td>
+        <td><?= htmlspecialchars($filme["diretor"]) ?></td>
+        <td>
+            <a href="filmes.php?id=<?= $index ?>">Editar</a>
+        </td>
+    <?php endif; ?>
+</tr>
+<?php endforeach; ?>
