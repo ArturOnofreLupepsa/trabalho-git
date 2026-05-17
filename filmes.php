@@ -30,6 +30,8 @@ if (!isset($_SESSION['lista_filmes'])) {
     ["titulo" => "Pulp Fiction", "genero" => "Crime / Drama", "ano" => 1994, "diretor" => "Quentin Tarantino"],
     ["titulo" => "O Cavaleiro das Trevas", "genero" => "Ação / Crime", "ano" => 2008, "diretor" => "Christopher Nolan"],
     ["titulo" => "Schindler's List", "genero" => "Drama / História", "ano" => 1993, "diretor" => "Steven Spielberg"],
+    ["titulo" => "Devoradores de Estrelas", "genero" => "Ficção Científica / Aventura", "ano" => 2026, "diretor" => "Phil Lord e Christopher Miller"],
+
 
     ];
 }
